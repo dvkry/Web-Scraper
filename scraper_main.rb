@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'colorize'
 require_relative 'interface'
-require_relative 'page_location'
+require_relative 'page_parser'
 
 
 #Interface.command(ARGV[0], ARGV[1])

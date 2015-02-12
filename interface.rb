@@ -2,7 +2,7 @@ class Interface
 
   def self.display_help
     puts "First argument must be the type of page you are scraping from.".blue
-    puts "'hn' for Hacker News, 'rd' for Reddit".blue
+    puts "'hn' for Hacker News, 'rd' for Reddit.".blue
     puts "Second argument must be the url.".blue
     puts ''
   end
