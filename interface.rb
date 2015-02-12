@@ -36,11 +36,12 @@ class Interface
 
   def self.display_post(post)
     display_comments(post)
-    puts "From page: " + "#{ARGV[1]}".red
-    puts "Title:     " + post.title.blue
-    puts "Url:       " + post.url.blue
-    puts "Score:     " + post.points.blue
-    puts "ID:        " + post.item_id.blue
+    puts "From page:      " + "#{ARGV[1]}".red
+    puts "Title:          " + post.title.blue
+    puts "Url:            " + post.url.blue
+    puts "Score:          " + post.points.blue
+    puts "ID:             " + post.item_id.blue
+    puts "Total Comments: " + post.comments.length.to_s.blue
   end
 
   def self.display_comments(post)
