@@ -1,34 +1,27 @@
-# stored a location of a webpage and ensures it is valid
-
-
-
 class RawPage
   attr_reader :raw_data
 
   def initialize(url)
-    @raw_data = Nokogiri::HTML(open(url))
+    begin
+      @raw_data = Nokogiri::HTML(open(url))
+    rescue Exception
+      Interface.unable_to_load(url)
+      exit
+    end
   end
-
 end
 
 class PageParser
-
   def self.hacker_news(url)
     page = RawPage.new(url)
-
-#    puts "title = #find title"
     title = page.raw_data.css('td.title a').text
-#    puts url
     url = page.raw_data.css('td.title a').map { |link| link['href'] }
     url = url[0]
-#    puts "points = #find points"
     points = page.raw_data.css('.score').text
-#    puts "item_id = #find item_id"
     item_id = page.raw_data.css('.score')[0]['id'][6..-1]
-
     post = Post.new(title, url, points, item_id)
-
     comments = page.raw_data.css('td .default')
+
     comments.each do |comment|
       comhead = comment.css('.comhead').text.split(' ')
       poster = comhead[0]
@@ -55,23 +48,6 @@ class Post
   def add_comment(comment)
     @comments << comment
   end
-
-  def comments
-    @comments.each do |comment|
-      puts 'Comment by ' + comment.poster.blue + ', Posted ' + comment.age + ' ago.'
-      puts comment.comment_text.green
-      puts ''
-    end
-  end
-
-  def display_post
-    self.comments
-    puts "From page: #{ARGV[0]}"
-    puts "Title: " + self.title.blue
-    puts "Url:   " + self.url.blue
-    puts "Score: " + self.points.blue
-    puts "ID:    " + self.item_id.blue
-  end
 end
 
 class Comment
@@ -81,15 +57,6 @@ class Comment
     @poster = poster
     @age = age
     @comment_text = comment_text
-  end
-
-  def show_info
-    puts "Poster:      " + @poster
-    puts "Comment age: " + @age
-  end
-
-  def show_full_comment
-    puts @comment_text
   end
 end
 
