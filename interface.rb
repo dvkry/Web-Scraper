@@ -1,18 +1,30 @@
 class Interface
 
   def self.display_help
-    puts "First argument must be the type of page you are scraping from.".red
-    puts "'hn' for Hacker News, 'rd' for Reddit".red
-    puts "Second argument must be the url.".red
+    puts "First argument must be the type of page you are scraping from.".blue
+    puts "'hn' for Hacker News, 'rd' for Reddit".blue
+    puts "Second argument must be the url.".blue
+    puts ''
   end
 
   def self.invalid_arguments
+    puts ''
     puts "Invalid Arguments!".red
   end
 
   def self.unable_to_load(url)
+    puts ''
     puts "#{url}".red
     puts "Unable to load URL! Check your spelling!".red
+    puts ''
+    display_help
+  end
+
+  def self.no_read
+    puts ''
+    puts "URL does not appear to be formatted correctly.".red
+    puts ''
+    display_help
   end
 
   def self.command(arg1, arg2)

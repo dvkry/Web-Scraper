@@ -11,9 +11,11 @@ if ARGV.length <= 1
   exit
 end
 
-case ARGV[0]
+case ARGV[0].downcase
 when 'hn'
   post = PageParser.hacker_news(ARGV[1])
+when 'rd'
+  post = PageParser.reddit(ARGV[1])
 else
   Interface.invalid_arguments
   exit
